@@ -17,6 +17,7 @@ class Quiz {
     }
 
     shuffleQuestions() {
+        console.log('BARAJANDO PREGUNTAS JEJEJE')
         this.questions.sort(() => .5 - Math.random());
     }
 
@@ -36,5 +37,27 @@ class Quiz {
         } else {
             return false
         }
+    }
+
+    filterQuestionsByDifficulty(difficulty) {
+
+        if (isNaN(difficulty) || !(difficulty > 0 && difficulty < 4) || typeof difficulty != 'number') {
+            return
+        }
+
+        const filteredQuestions = this.questions.filter(eachQuestion => {
+            return eachQuestion.difficulty === difficulty
+        })
+
+        this.questions = filteredQuestions
+    }
+
+    averageDifficulty() {
+
+        const sumDifficulty = this.questions.reduce((acc, eachQuestion) => {
+            return acc + eachQuestion.difficulty
+        }, 0)
+
+        return sumDifficulty / this.questions.length
     }
 }
